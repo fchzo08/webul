@@ -62,7 +62,7 @@
       font-size: 0.9rem;
     }
 
-    /* Tombol mute di pojok kanan atas */
+    /* Tombol mute */
     .mute-button-container {
       position: absolute;
       top: 10px;
@@ -81,7 +81,7 @@
       height: 40px;
     }
 
-    /* Overlay popup */
+    /* Overlay musik */
     #overlay {
       position: fixed;
       top: 0;
@@ -109,17 +109,34 @@
       background-color: #0277bd;
     }
 
-    @media (min-width: 600px) {
-      h1 {
-        font-size: 2.5rem;
-      }
-      .ucapan {
-        font-size: 1.2rem;
-      }
+    /* Overlay kunci tanggal */
+    #lockedOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #000000; /* hitam pekat */
+      color: white;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      font-size: 1.3rem;
+      text-align: center;
+      padding: 2rem;
     }
   </style>
 </head>
 <body>
+
+  <!-- Overlay untuk blok sebelum 16 April -->
+  <div id="lockedOverlay" style="display: none;">
+    <p>Ups! 😅</p>
+    <p>Halaman ini hanya bisa dibuka pada <strong>16 April</strong>.</p>
+    <p>Sabar ya, tinggal sebentar lagi</p>
+  </div>
 
   <!-- Overlay untuk aktifkan musik -->
   <div id="overlay">
@@ -140,11 +157,7 @@
 
   <section class="ucapan">
     <p><strong>Selamat ulang tahun, Connie</strong></p>
-    <p>Hari ini adalah momen yang sangat spesial, bukan hanya karena bertambahnya usiamu, tetapi juga sebagai pengingat betapa berharganya kamu di mata banyak orang. Di hari yang indah ini, aku ingin mengucapkan banyak hal untukmu. Tapi yang paling utama, terima kasih karena telah menjadi kamu yang apa adanya, ceria, tulus, hangat, dan penuh semangat.</p>
-    <p>Semoga setiap detik di umurmu yang baru ini dipenuhi oleh hal-hal yang membahagiakan. Semoga apa pun yang kamu impikan selama ini satu per satu menjadi kenyataan. Jangan takut bermimpi besar, karena kamu punya kekuatan untuk meraihnya.</p>
-    <p>Di tengah hiruk-pikuk kehidupan, semoga kamu selalu menemukan ketenangan. Di saat hujan turun di hati, semoga kamu tetap menemukan pelangi. Dan saat kamu merasa sendiri, semoga kamu selalu ingat bahwa ada orang-orang yang mencintai dan mendukungmu, tanpa henti.</p>
-    <p>Hari ini, biarkan dunia tahu bahwa kamu pantas dirayakan. Tersenyumlah lebih lebar, tertawalah lebih lepas, dan cintailah dirimu lebih dalam.</p>
-    <p><strong>Selamat ulang tahun, Connie</strong> Semoga tahun ini menjadi babak baru yang lebih luar biasa dari sebelumnya dan jangan lupa kerjakan skripsimu hehe. Teruslah menjadi cahaya untuk dirimu dan orang di sekitarmu. 💙✨</p>
+    <p>Hari ini adalah momen yang sangat spesial, bukan hanya karena bertambahnya usiamu...</p>
     <p>Love buat connie dari parul ❤️❤️</p>
   </section>
 
@@ -173,7 +186,7 @@
       audioPlayer.muted = !audioPlayer.muted;
       muteIcon.src = audioPlayer.muted ? "src/vol.png" : "src/volm.png";
     }
-
+  
     function startAudio() {
       var audio = document.getElementById('audioPlayer');
       var overlay = document.getElementById('overlay');
@@ -183,7 +196,18 @@
         console.error('Autoplay gagal:', error);
       });
     }
+  
+    window.onload = function () {
+      const today = new Date();
+      const targetDate = new Date(today.getFullYear(), 3, 16);
+  
+      if (today < targetDate) {
+        document.getElementById('lockedOverlay').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+    };
   </script>
+  
 
 </body>
 </html>
