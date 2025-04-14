@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selamat Ulang Tahun Nony!</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #e0f7fa;
+      color: #01579b;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    header {
+      background-color: #0288d1;
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .ucapan {
+      padding: 1.5rem 1rem;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .galeri {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      padding: 1rem;
+    }
+
+    .galeri img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .galeri img:hover {
+      transform: scale(1.03);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #b3e5fc;
+      font-size: 0.9rem;
+    }
+
+    /* Tombol mute di pojok kanan atas */
+    .mute-button-container {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 1000;
+    }
+
+    .mute-button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .mute-button img {
+      width: 40px;
+      height: 40px;
+    }
+
+    /* Overlay popup */
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    #overlay button {
+      background-color: #0288d1;
+      color: white;
+      font-size: 1.2rem;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #overlay button:hover {
+      background-color: #0277bd;
+    }
+
+    @media (min-width: 600px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      .ucapan {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Overlay untuk aktifkan musik -->
+  <div id="overlay">
+    <button onclick="startAudio()">Nyalakan Musik 🎵</button>
+  </div>
+
+  <!-- Tombol mute -->
+  <div class="mute-button-container">
+    <button class="mute-button" onclick="toggleMute()">
+      <img id="muteIcon" src="src/volm.png" alt="Mute Icon">
+    </button>
+  </div>
+
+  <header>
+    <h1>Selamat Ulang Tahun, Connie 🎉</h1>
+    <p>16 April</p>
+  </header>
+
+  <section class="ucapan">
+    <p><strong>Selamat ulang tahun, Connie</strong></p>
+    <p>Hari ini adalah momen yang sangat spesial, bukan hanya karena bertambahnya usiamu, tetapi juga sebagai pengingat betapa berharganya kamu di mata banyak orang. Di hari yang indah ini, aku ingin mengucapkan banyak hal untukmu. Tapi yang paling utama, terima kasih karena telah menjadi kamu yang apa adanya, ceria, tulus, hangat, dan penuh semangat.</p>
+    <p>Semoga setiap detik di umurmu yang baru ini dipenuhi oleh hal-hal yang membahagiakan. Semoga apa pun yang kamu impikan selama ini satu per satu menjadi kenyataan. Jangan takut bermimpi besar, karena kamu punya kekuatan untuk meraihnya.</p>
+    <p>Di tengah hiruk-pikuk kehidupan, semoga kamu selalu menemukan ketenangan. Di saat hujan turun di hati, semoga kamu tetap menemukan pelangi. Dan saat kamu merasa sendiri, semoga kamu selalu ingat bahwa ada orang-orang yang mencintai dan mendukungmu, tanpa henti.</p>
+    <p>Hari ini, biarkan dunia tahu bahwa kamu pantas dirayakan. Tersenyumlah lebih lebar, tertawalah lebih lepas, dan cintailah dirimu lebih dalam.</p>
+    <p><strong>Selamat ulang tahun, Connie</strong> Semoga tahun ini menjadi babak baru yang lebih luar biasa dari sebelumnya dan jangan lupa kerjakan skripsimu hehe. Teruslah menjadi cahaya untuk dirimu dan orang di sekitarmu. 💙✨</p>
+    <p>Love buat connie dari parul ❤️❤️</p>
+  </section>
+
+  <audio id="audioPlayer" loop>
+    <source src="src/hbd.mp3" type="audio/mp3">
+    Browser kamu tidak mendukung audio.
+  </audio>
+
+  <section class="galeri">
+    <img src="src/1.jpg" alt="Foto 1">
+    <img src="src/2.jpg" alt="Foto 2">
+    <img src="src/3.jpg" alt="Foto 3">
+    <img src="src/4.jpg" alt="Foto 4">
+    <img src="src/5.jpg" alt="Foto 5">
+    <img src="src/6.jpg" alt="Foto 6">
+  </section>
+
+  <footer>
+    &copy; 2025 By Parul 💙
+  </footer>
+
+  <script>
+    function toggleMute() {
+      var audioPlayer = document.getElementById('audioPlayer');
+      var muteIcon = document.getElementById('muteIcon');
+      audioPlayer.muted = !audioPlayer.muted;
+      muteIcon.src = audioPlayer.muted ? "src/vol.png" : "src/volm.png";
+    }
+
+    function startAudio() {
+      var audio = document.getElementById('audioPlayer');
+      var overlay = document.getElementById('overlay');
+      audio.play().then(() => {
+        overlay.style.display = 'none';
+      }).catch((error) => {
+        console.error('Autoplay gagal:', error);
+      });
+    }
+  </script>
+
+</body>
+</html>
